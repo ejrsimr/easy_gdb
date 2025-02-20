@@ -11,7 +11,7 @@ import sys
 def main():
 
     if len(sys.argv) != 3:
-        print('Usage: retrieve_seqs <text> <file>')
+        print('Usage: retrieve_seqs <pattern> <file>')
         sys.exit(1)
 
     fasta_in = read_fasta(sys.argv[2])
@@ -32,8 +32,6 @@ def read_fasta(filename):
             if line.startswith('>'):
                 header = line.strip()
                 header = header.replace('>', '')
-                # set first word of header as key
-                header = header.split()[0]
 
                 fasta_dict[header] = ''
             else:
@@ -45,7 +43,7 @@ def read_fasta(filename):
 def retrieve_seqs(fasta_dict, pattern):
     fasta_out = {}
     for header in fasta_dict:
-    # if pattern in header
+    # if pattern is contained in header
         if pattern in header:
             fasta_out[header] = fasta_dict[header]
     return fasta_out
