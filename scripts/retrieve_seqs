@@ -26,8 +26,15 @@ def main():
 ##########################################################################################
 ### read in fasta file
 def read_fasta(filename):
+    
+    if filename.endswith('.gz'):
+        import gzip
+        my_open = gzip.open
+    else:
+        my_open = open
+    
     fasta_dict = {}
-    with open(filename, 'r') as f:
+    with my_open(filename, 'rt') as f:
         for line in f:
             if line.startswith('>'):
                 header = line.strip()
